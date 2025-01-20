@@ -1,9 +1,4 @@
 import mongoose from "mongoose"
-import uniqueValidator from 'mongoose-unique-validator'
-
-const categorySchema = new mongoose.Schema({
-    name: {type: String, uniuqe: true, required: true}
-})
 
 const reviewSchema = new mongoose.Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
@@ -15,7 +10,7 @@ const reviewSchema = new mongoose.Schema({
 
 const recipeSchema = new mongoose.Schema({
     name: {type: String, required: true},
-    category: [categorySchema], // ? might want to make this not an array
+    category: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true}], // ? might want to make this not an array
     description: {type: String},
     servings: {type: String},
     time: {type: String},
@@ -24,8 +19,5 @@ const recipeSchema = new mongoose.Schema({
     reviews: [reviewSchema],
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
 })
-
-// using this plugin for keys that are unique to return a validation error
-userSchema.plugin(uniqueValidator)
 
 export default mongoose.model('Recipe', recipeSchema)
