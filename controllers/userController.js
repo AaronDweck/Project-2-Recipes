@@ -1,4 +1,4 @@
-import express, { query } from 'express'
+import express from 'express'
 import User from '../models/user.js'
 
 const router = express.Router()
@@ -57,10 +57,8 @@ router.post('/login', async (req, res, next) => {
         req.session.user = user
         res.redirect('/')
     } catch (error) {
-        // todo fix this to use a error handler middleware correctly
-        res.redirect('/login?error=true')
+        res.locals.page = '/login'
         next(error)
-        console.log('hi')
     }
 })
 
