@@ -1,0 +1,19 @@
+<%- include('../partials/html-head') %>
+<%- include('../partials/nav') %>
+    <h1>Signup</h1>
+    <form action="/signup" method="post">
+        <label for="username">Username</label>
+        <input type="text" name="username">
+        <label for="email">Email</label>
+        <input type="text" name="email">
+        <label for="password">Password</label>
+        <input type="text" name="password">
+        <label for="passwordConfirmation">Password confirmation</label>
+        <input type="text" name="passwordConfirmation">
+        <% if (query.passwordConfirmation) { %>
+            <p>Passwords do not match</p>
+        <% } %>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

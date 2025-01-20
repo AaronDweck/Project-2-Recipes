@@ -4,35 +4,38 @@ import bcrypt from 'bcrypt'
 import validator from 'validator'
 
 const userSchema = new mongoose.Schema({
-    username: {type: String, required: true, unique: true},
-    firstName: {type: String},
-    lastName: {type: String},
+    username: { type: String, required: true, unique: true },
+    firstName: { type: String },
+    lastName: { type: String },
     email: {
-        type: String, 
-        required: true, 
+        type: String,
+        required: true,
         unique: true,
         validate: {
             message: 'Please enter a valid email.',
             validator: (email) => validator.isEmail(email)
-        } 
-    },
-    password: {
-        type: String, 
-        required: true,
-        validate: {
-            validator: (password) => {
-                validator.isStrongPassword(password,{
-                    minLength: 8,
-                    minLowercase: 1,
-                    minNumbers: 1,
-                    minSymbols: 1,
-                    minUppercase: 1
-                })
-            },
-            message: 'The password must be 8 characters long and contain at least 1 upercase, lowercase and symbol'
         }
     },
-    savedRecipes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Recipe'}]
+    password: {
+        type: String,
+        required: true,
+        // todo check why this format doesnt work
+        // validate: {
+        //     message: 'The password must be 8 characters long and contain at least 1 upercase, lowercase and symbol',
+        //     validator: (password) => {
+        //         validator.isStrongPassword(password,
+        //             { minLength: 8, minLowercase: 1, minNumbers: 1, minSymbols: 1, minUppercase: 1 }
+        //         )
+        //     }
+        // }
+        validate: {
+            message: 'The password must be 8 characters long and contain at least 1 upercase, lowercase and symbol',
+            validator: (password) =>  validator.isStrongPassword(password,
+                { minLength: 8, minLowercase: 1, minNumbers: 1, minSymbols: 1, minUppercase: 1 }
+            )
+        }
+    },
+    savedRecipes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }]
 })
 
 // using this plugin for keys that are unique to return a validation error
