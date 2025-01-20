@@ -10,7 +10,7 @@ const reviewSchema = new mongoose.Schema({
 
 const recipeSchema = new mongoose.Schema({
     name: {type: String, required: true},
-    category: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true}], // ? might want to make this not an array
+    categories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true}], // ? might want to make this not an array
     description: {type: String},
     servings: {type: String},
     time: {type: String},

@@ -1,0 +1,40 @@
+<%- include('../partials/html-head') %>
+<%- include('../partials/nav') %>
+    <h1><%= recipe.name %></h1>
+    <h2>Category</h2>
+    <% recipe.categories.forEach(category => { %>
+        <p><%= category.name %></p>
+    <% }) %>
+    <h2>Description</h2>
+    <p><%= recipe.description %></p>
+    <h2>Servings</h2>
+    <p><%= recipe.servings %></p>
+    <h2>Time</h2>
+    <p><%= recipe.time %></p>
+    <h2>Ingredients</h2>
+    <ul>
+        <% recipe.ingredients.forEach(ingredient => { %>
+            <li><%= ingredient %></li>
+        <% }) %>
+    </ul>
+    <h2>Directions</h2>
+    <ol>
+        <% recipe.directions.forEach(direction => { %>
+            <li><%= direction %></li>
+        <% }) %>
+    </ol>
+    <h2>By</h2>
+    <p><%= recipe.user.username %></p>
+    <h2>Reviews</h2>
+    <% recipe.reviews.forEach(review => { %>
+        <div>
+            <p><%= review.user.username %></p>
+            <textarea><%= review.content %></textarea>
+        </div>
+    <% }) %>
+
+
+
+
+</body>
+</html>

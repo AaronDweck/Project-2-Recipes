@@ -15,7 +15,7 @@ async function seed() {
 
     data.recipes.forEach(recipe => {
         recipe.user = users[0]
-        recipe.category = categories[0]
+        recipe.categories = categories[0]
     })
     await Recipe.create(data.recipes)
     await mongoose.disconnect()
