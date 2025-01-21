@@ -7,6 +7,7 @@ const router = express.Router()
 router.get('/login', async (req, res, next) => {
     try {
         res.render('user/login.ejs', {
+            user: req.session.user,
             error: req.query.error
         })
     } catch (error) {
@@ -18,6 +19,7 @@ router.get('/login', async (req, res, next) => {
 router.get('/signup', async (req, res, next) => {
     try {
         res.render('user/signup.ejs', {
+            user: req.session.user,
             query: req.query
         })
     } catch (error) {

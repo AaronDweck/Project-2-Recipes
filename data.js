@@ -2,9 +2,14 @@ const categories = [
     { name: "Breakfast" },
     { name: "Lunch" },
     { name: "Dinner" },
+    { name: "Appetizers" },
     { name: "Snacks" },
-    { name: "Desserts" }
-]
+    { name: "Desserts" },
+    { name: "Drinks" },
+    { name: "Salads" },
+    { name: "Soups" },
+    { name: "Vegetarian" }
+  ]
 
 const recipes = [
     {

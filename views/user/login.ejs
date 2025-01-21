@@ -1,5 +1,5 @@
 <%- include('../partials/html-head') %>
-<%- include('../partials/nav') %>
+<%- include('../partials/nav', {user: user}) %>
     <h1>Login</h1>
     <form action="/login" method="post">
         <label for="usernameOrEmail">Username or Email</label>

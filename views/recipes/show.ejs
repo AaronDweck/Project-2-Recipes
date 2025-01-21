@@ -1,11 +1,12 @@
 <%- include('../partials/html-head') %>
-<%- include('../partials/nav') %>
+<%- include('../partials/nav', {user: user}) %>
     <h1><%= recipe.name %></h1>
     <h2>Category</h2>
     <% recipe.categories.forEach(category => { %>
         <p><%= category.name %></p>
     <% }) %>
     <h2>Description</h2>
+    <textarea disabled><%= recipe.description %></textarea>
     <p><%= recipe.description %></p>
     <h2>Servings</h2>
     <p><%= recipe.servings %></p>

@@ -1,5 +1,5 @@
 <%- include('../partials/html-head') %>
-<%- include('../partials/nav') %>
+<%- include('../partials/nav', {user: user}) %>
     <% recipes.forEach(recipe => { %>
         <a href="/recipe/<%= recipe._id %>"><%= recipe.name %></a>
     <% }) %>

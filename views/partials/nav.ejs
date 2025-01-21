@@ -1,5 +1,9 @@
 <nav>
     <a href="/">All Recipes</a>
-    <a href="/login">Login</a>
-    <a href="/signup">Signup</a>
+    <% if (user) { %>
+        <a href="/create-recipe">Create recipe</a>
+    <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+    <% } %>
 </nav>
