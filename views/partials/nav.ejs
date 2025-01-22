@@ -1,15 +1,20 @@
 <nav>
-    <a href="/">All Recipes</a>
-    <div class="categories-dropdown">
-        <a href="#">Categories</a>
-        <div class="categories-dropdown-content">
-            <a href="/recipeByCategory/678f863037c80f1d34da2db5">Breakfast</a>
+    <div>
+        <a href="/">All Recipes</a>
+        <div class="categories-dropdown">
+            <a href="#">Categories</a>
+            <div class="categories-dropdown-content">
+                <a href="/recipeByCategory/678f863037c80f1d34da2db5">Breakfast</a>
+            </div>
         </div>
-    </div>
     <% if (user) { %>
-        <a href="/create-recipe">Create recipe</a>
+            <a href="/create-recipe">Create recipe</a>
+        </div>
     <% } else { %>
-        <a href="/login">Login</a>
-        <a href="/signup">Signup</a>
+        </div>
+        <div>
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        </div>
     <% } %>
 </nav>

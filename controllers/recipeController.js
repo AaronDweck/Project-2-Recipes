@@ -1,7 +1,6 @@
 import express from 'express'
 import Recipe from '../models/recipe.js'
 import Category from '../models/category.js'
-// import '../models/user.js'
 
 const router = express.Router()
 
