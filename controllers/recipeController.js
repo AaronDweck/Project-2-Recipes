@@ -153,4 +153,17 @@ router.put('/update-recipe/:recipeID', async (req, res, next) => {
     }
 })
 
+router.delete('/recipe/:recipeID', async (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/login')
+        }
+
+        await Recipe.findByIdAndDelete(req.params.recipeID)
+        res.redirect('/')
+    } catch (error) {
+        next(error)
+    }
+})
+
 export default router
