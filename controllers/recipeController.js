@@ -37,7 +37,7 @@ router.get('/recipeByCategory/:categoryId', async (req, res, next) => {
     try {
         let recipes = await Recipe.find()
         recipes = recipes.filter(recipe => recipe.categories.includes(req.params.categoryId))
-        res.render('recipes/indexByCategories.ejs', {
+        res.render('recipes/index.ejs', {
             user: req.session.user,
             recipes: recipes
         })

@@ -40,6 +40,11 @@ app.use(express.static(path.join(__dirname, "public")))
 
 app.use(mongoSanitize({ replaceWith: '_' }))
 
+app.use((req, res, next) => { 
+	res.locals.user = req.session.user || null 
+	next() 
+})
+
 app.use('/', recipeController)
 app.use('/', userController)
 
