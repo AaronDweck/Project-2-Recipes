@@ -12,12 +12,12 @@
             <div>
                 <h2>Categories:</h2>
                 <div class="upsert-categories">
-                        <% categories.forEach(category => { %>
-                            <div class="upsert-category">
-                                <label for="<%= category.name %>"><%= category.name %></label>
-                                <input type="checkbox" name="categories" value="<%= category.name %>" id="<%= category.name %>">
-                            </div>
-                        <% }) %>
+                    <% categories.forEach(category => { %>
+                        <div class="upsert-category">
+                            <label for="<%= category.name %>"><%= category.name %></label>
+                            <input type="checkbox" name="categories" value="<%= category.name %>" id="<%= category.name %>">
+                        </div>
+                    <% }) %>
                 </div>
             </div>
             <div class="upsert-description">
