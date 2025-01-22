@@ -1,46 +1,79 @@
 <%- include('../partials/html-head') %>
 <%- include('../partials/nav', {user: user}) %>
     <h1><%= recipe.name %></h1>
-    <h2>Category</h2>
-    <% recipe.categories.forEach(category => { %>
-        <p><%= category.name %></p>
-    <% }) %>
-    <h2>Description</h2>
-    <textarea disabled><%= recipe.description %></textarea>
-    <p><%= recipe.description %></p>
-    <h2>Servings</h2>
-    <p><%= recipe.servings %></p>
-    <h2>Time</h2>
-    <p><%= recipe.time %></p>
-    <h2>Ingredients</h2>
-    <ul>
-        <% recipe.ingredients.forEach(ingredient => { %>
-            <li><%= ingredient %></li>
-        <% }) %>
-    </ul>
-    <h2>Directions</h2>
-    <ol>
-        <% recipe.directions.forEach(direction => { %>
-            <li><%= direction %></li>
-        <% }) %>
-    </ol>
-    <h2>By</h2>
-    <p><%= recipe.user.username %></p>
-    <h2>Reviews</h2>
-    <% recipe.reviews.forEach(review => { %>
-        <div>
-            <p><%= review.user.username %></p>
-            <textarea><%= review.content %></textarea>
+    <div class="centering-container">
+        <div class="show-container">
+            <div>
+                <h2>Category</h2>
+                <div class="show-categories">
+                    <% recipe.categories.forEach(category => { %>
+                        <p><%= category.name %></p>
+                    <% }) %>
+                </div>
+            </div>
+            <div>
+                <h2>Description</h2>
+                <textarea class="show-description" disabled><%= recipe.description %></textarea>
+            </div>
+            <div class="show-servings-time">
+                <h2>Servings</h2>
+                <p><%= recipe.servings %></p>
+            </div>
+            <div class="show-servings-time">
+                <h2>Time</h2>
+                <p><%= recipe.time %></p>
+            </div>
+            <div>
+                <h2>Ingredients</h2>
+                <ul class="show-ingredients-directions">
+                    <% recipe.ingredients.forEach(ingredient => { %>
+                        <li><%= ingredient %></li>
+                    <% }) %>
+                </ul>
+            </div>
+            <div>
+                <h2>Directions</h2>
+                <ol class="show-ingredients-directions">
+                    <% recipe.directions.forEach(direction => { %>
+                        <li><%= direction %></li>
+                    <% }) %>
+                </ol>
+            </div>
+            <div class="show-servings-time show-by">
+                <h2>By</h2>
+                <p><%= recipe.user.username %></p>
+            </div>
+            <div class="show-recipe-buttons">
+                <div>
+                    <button>Save</button>
+                </div>
+                <% if (user) { %>
+                    <% if (recipe.user._id.equals(user._id)) {%>
+                        <div>
+                            <a href="/update-recipe/<%= recipe._id %>">
+                                <button>Update</button>
+                            </a>
+                        </div>
+                        <div>
+                            <!-- todo undo this comment and remove other form tag to add delete functionality  -->
+                            <!-- <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="post"> -->
+                            <form action="#">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+            <div class="show-reviews">
+                <h2>Reviews</h2>
+                <% recipe.reviews.forEach(review => { %>
+                    <div>
+                        <p><%= review.user.username %></p>
+                        <textarea><%= review.content %></textarea>
+                    </div>
+                <% }) %>
+            </div>
         </div>
-    <% }) %>
-    <% if (recipe.user._id.equals(user._id)) {%>
-        <a href="/update-recipe/<%= recipe._id %>">
-            <button>Update</button>
-        </a>
-        <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="post">
-            <button type="submit">Delete</button>
-        </form>
-
-    <% } %>
+    </div>
 </body>
 </html>
