@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+nav{
+    padding: 10px;
+}
+
+.categories-dropdown{
+    display: inline;
+}
+
+.categories-dropdown-content{
+    display: none;
+    background-color: red;
+    position: relative;
+}
+
+.categories-dropdown:hover .categories-dropdown-content {
+    display: inline;
+}

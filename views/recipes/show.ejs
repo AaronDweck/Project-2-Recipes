@@ -33,9 +33,10 @@
             <textarea><%= review.content %></textarea>
         </div>
     <% }) %>
-
-
-
-
+    <% if (recipe.user._id.equals(user._id)) {%>
+        <a href="/update-recipe/<%= recipe._id %>">
+            <button>Update</button>
+        </a>
+    <% } %>
 </body>
 </html>

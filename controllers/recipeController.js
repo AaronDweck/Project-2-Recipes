@@ -23,10 +23,23 @@ router.get('/', async (req, res, next) => {
 router.get('/recipe/:recipeID', async (req, res, next) => {
     try {
         const recipe = await Recipe.findById(req.params.recipeID).populate('categories').populate('user')
-        console.log(recipe)
         res.render('recipes/show.ejs', {
             user: req.session.user,
             recipe: recipe
+        })
+    } catch (error) {
+        next(error)
+    }
+})
+
+// get all recipes by category page
+router.get('/recipeByCategory/:categoryId', async (req, res, next) => {
+    try {
+        let recipes = await Recipe.find()
+        recipes = recipes.filter(recipe => recipe.categories.includes(req.params.categoryId))
+        res.render('recipes/indexByCategories.ejs', {
+            user: req.session.user,
+            recipes: recipes
         })
     } catch (error) {
         next(error)
@@ -61,8 +74,13 @@ router.post('/create-recipe', async (req, res, next) => {
 
         const categoryIds = []
 
-        for (const category of req.body.categories) {
-            const categoryObj = await Category.findOne({ name: category })
+        if (typeof (req.body.categories) === 'object') {
+            for (const category of req.body.categories) {
+                const categoryObj = await Category.findOne({ name: category })
+                categoryIds.push(categoryObj._id)
+            }
+        } else {
+            const categoryObj = await Category.findOne({ name: req.body.categories })
             categoryIds.push(categoryObj._id)
         }
 
@@ -79,6 +97,60 @@ router.post('/create-recipe', async (req, res, next) => {
         next(error)
     }
 
+})
+
+// update recipe page
+router.get('/update-recipe/:recipeID', async (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/login')
+        }
+
+        const categories = await Category.find().sort({ name: 1 })
+
+        const recipe = await Recipe.findById(req.params.recipeID)
+
+        res.render('recipes/update.ejs', {
+            user: req.session.user,
+            categories: categories,
+            recipe: recipe
+        })
+    } catch (error) {
+        next(error)
+    }
+
+})
+
+// handle update recipe info
+router.put('/update-recipe/:recipeID', async (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/login')
+        }
+
+        const categoryIds = []
+        if (typeof (req.body.categories) === 'object') {
+            for (const category of req.body.categories) {
+                const categoryObj = await Category.findOne({ name: category })
+                categoryIds.push(categoryObj._id)
+            }
+        } else {
+            const categoryObj = await Category.findOne({ name: req.body.categories })
+            categoryIds.push(categoryObj._id)
+        }
+
+        req.body.categories = categoryIds
+        req.body.ingredients = req.body.ingredients.replace(/\r\n/g, '').split(';')
+        req.body.directions = req.body.directions.replace(/\r\n/g, '').split(';')
+        req.body.user = req.session.user
+
+        console.log(req.body)
+        
+        await Recipe.findByIdAndUpdate(req.params.recipeID, req.body, { runValidators: true })
+        res.redirect(`/recipe/${req.params.recipeID}`)
+    } catch (error) {
+        next(error)
+    }
 })
 
 export default router

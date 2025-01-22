@@ -30,7 +30,7 @@ router.get('/signup', async (req, res, next) => {
 // handle signup info
 router.post('/signup', async (req, res, next) => {
     try {
-        if (req.body.password !== req.body.passwordConfirmation){
+        if (req.body.password !== req.body.passwordConfirmation) {
             return res.redirect('/signup?passwordConfirmation=false')
         }
         await User.create(req.body)
@@ -39,7 +39,7 @@ router.post('/signup', async (req, res, next) => {
         console.log(error.message)
         next(error)
     }
-} )
+})
 
 // handle login info
 router.post('/login', async (req, res, next) => {
@@ -51,11 +51,10 @@ router.post('/login', async (req, res, next) => {
             ]
         })
 
-        console.log(user)
-        if(!user.isPasswordValid(req.body.password)){
-            console.log('test')
+        if (!user.isPasswordValid(req.body.password)) {
             return res.redirect('/login?error=true')
         }
+
         req.session.user = user
         res.redirect('/')
     } catch (error) {

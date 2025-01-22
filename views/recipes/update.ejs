@@ -1,0 +1,40 @@
+<%- include('../partials/html-head') %>
+<%- include('../partials/nav', {user: user}) %>
+    <form action="/update-recipe/<%= recipe._id %>?_method=PUT" method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="<%= recipe.name %>">
+        </div>
+        <div>
+            <p>Categories:</p>
+            <% categories.forEach(category => { %>
+                <label for="<%= category.name %>"><%= category.name %></label>
+                <input type="checkbox" name="categories" value="<%= category.name %>" id="<%= category.name %>" <%= recipe.categories.includes(category._id) ? 'checked':''  %>>
+            <% }) %>
+        </div>
+        <div>
+            <label for="description">Description: </label>
+            <textarea name="description" id="description"><%= recipe.description.replace(/\\r?\\n/g, '\n') %></textarea>
+        </div>
+        <div>
+            <label for="servings">Servings:</label>
+            <input type="number" name="servings" min="1" value="<%= recipe.servings %>">
+        </div>
+        <div>
+            <label for="time">Time:</label>
+            <input type="text" name="time" value="<%= recipe.time %>">
+        </div>
+        <div>
+            <label for="ingredients">Ingredients: </label>
+            <p>Separate each ingredient with a ";" leave last ingredient without a ";"</p>
+            <textarea name="ingredients" id="ingredients"><%= recipe.ingredients.join(';') %></textarea>
+        </div>
+        <div>
+            <label for="directions">Directions: </label>
+            <p>Separate each direction with a ";" leave last direction without a ";"</p>
+            <textarea name="directions" id="directions"><%= recipe.directions.join(';') %></textarea>
+        </div>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
