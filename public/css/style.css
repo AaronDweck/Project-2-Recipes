@@ -131,6 +131,92 @@ textarea {
     color: white;
 }
 
+/* styles for creating and updating a recipe */
+
+.upsert-form {
+    width: 50%;
+    height: 100%;
+    border: 2px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.upsert-form label{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.upsert-form div {
+    flex-basis: 50%;
+    padding: 0px 2.5px 0 2.5px;
+}
+
+.upsert-form .upsert-name,
+.upsert-form .upsert-submit {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.upsert-form .upsert-name div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.upsert-categories {
+    display: flex;
+    flex-wrap: wrap;
+    /* gap: 5px; */
+}
+
+.upsert-categories div {
+    flex-basis: calc(100%/3);
+}
+
+.upsert-categories div label {
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.upsert-category {
+    display: flex;
+    justify-content: space-between;
+}
+
+.upsert-description textarea {
+    height: 75px;
+    resize: none;
+    background-color: white;
+}
+
+.upsert-servings-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upsert-ingredients-directions p {
+    color: #E63946;
+}
+
+.upsert-ingredients-directions textarea {
+    height: 125px;
+    resize: none;
+    background-color: white;
+}
+
+.upsert-form .upsert-submit {
+    justify-content: flex-end;
+}
+
+.upsert-submit button {
+    width: 100px;
+    height: 50px;
+}
+
 /* styles for the show page */
 
 .show-container {

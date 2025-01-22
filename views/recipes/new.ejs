@@ -1,39 +1,51 @@
 <%- include('../partials/html-head') %>
 <%- include('../partials/nav', {user: user}) %>
     <h1>Create a recipe</h1>
-    <form action="/create-recipe" method="post">
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" name="name">
-        </div>
-        <div>
-            <p>Categories:</p>
-            <% categories.forEach(category => { %>
-                    <label for="<%= category.name %>"><%= category.name %></label>
-                    <input type="checkbox" name="categories" value="<%= category.name %>" id="<%= category.name %>">
-            <% }) %>
-        </div>
-        <div>
-            <label for="description">Description: </label>
-            <textarea name="description" id="description"></textarea>
-        </div>
-        <div>
-            <label for="servings">Servings:</label>
-            <input type="number" name="servings" min="1">
-        </div>
-        <div>
-            <label for="time">Time:</label>
-            <input type="text" name="time">
-        </div>
-        <div>
-            <label for="ingredients">Ingredients: </label>
-            <p>Separate each ingredient with a ";" leave last ingredient without a ";"</p>
-            <textarea name="ingredients" id="ingredients"></textarea>
-        </div>
-        <div>
-            <label for="directions">Directions: </label>
-            <p>Separate each direction with a ";" leave last direction without a ";"</p>
-            <textarea name="directions" id="directions"></textarea>
-        </div>
-        <button type="submit">Create</button>
-    </form>
+    <div class="centering-container">
+        <form class="upsert-form" action="/create-recipe" method="post">
+            <div class="upsert-name">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name">
+                </div>
+            </div>
+            <div>
+                <h2>Categories:</h2>
+                <div class="upsert-categories">
+                        <% categories.forEach(category => { %>
+                            <div class="upsert-category">
+                                <label for="<%= category.name %>"><%= category.name %></label>
+                                <input type="checkbox" name="categories" value="<%= category.name %>" id="<%= category.name %>">
+                            </div>
+                        <% }) %>
+                </div>
+            </div>
+            <div class="upsert-description">
+                <label for="description">Description: </label>
+                <textarea name="description" id="description"></textarea>
+            </div>
+            <div class="upsert-servings-time">
+                <label for="servings">Servings:</label>
+                <input type="number" name="servings" min="1">
+            </div>
+            <div class="upsert-servings-time">
+                <label for="time">Time:</label>
+                <input type="text" name="time">
+            </div>
+            <div class="upsert-ingredients-directions">
+                <label for="ingredients">Ingredients: </label>
+                <p>Separate each ingredient with a ";" leave last ingredient without a ";"</p>
+                <textarea name="ingredients" id="ingredients"></textarea>
+            </div>
+            <div class="upsert-ingredients-directions">
+                <label for="directions">Directions: </label>
+                <p>Separate each direction with a ";" leave last direction without a ";"</p>
+                <textarea name="directions" id="directions"></textarea>
+            </div>
+            <div class="upsert-submit">
+                <button type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

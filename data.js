@@ -8,7 +8,9 @@ const categories = [
     { name: "Drinks" },
     { name: "Salads" },
     { name: "Soups" },
-    { name: "Vegetarian" }
+    { name: "Vegetarian" },
+    { name: "Other" },
+    { name: "Seafood" }
   ]
 
 const recipes = [
