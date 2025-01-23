@@ -148,6 +148,12 @@ router.put('/update-recipe/:recipeID', async (req, res, next) => {
             return res.redirect('/login')
         }
 
+        const recipe = await Recipe.findById(req.params.recipeID)
+
+        if (!recipe.user._id.equals(req.session.user._id)) {
+            return res.send({ message: 'You are not authorized to update this recipe.' })
+        }
+
         const categoryIds = []
         if (typeof (req.body.categories) === 'object') {
             for (const category of req.body.categories) {
@@ -163,7 +169,7 @@ router.put('/update-recipe/:recipeID', async (req, res, next) => {
         req.body.ingredients = req.body.ingredients.replace(/\r\n/g, '').split(';')
         req.body.directions = req.body.directions.replace(/\r\n/g, '').split(';')
         req.body.user = req.session.user
-        
+
         await Recipe.findByIdAndUpdate(req.params.recipeID, req.body, { runValidators: true })
         res.redirect(`/recipe/${req.params.recipeID}`)
     } catch (error) {
@@ -218,6 +224,7 @@ router.post('/save-recipe/:recipeID', async (req, res, next) => {
     }
 })
 
+// unsaving a recipe from the user
 router.delete('/unsave-recipe/:recipeID', async (req, res, next) => {
     try {
         if (!req.session.user) {

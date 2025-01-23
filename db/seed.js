@@ -11,8 +11,8 @@ async function seed() {
     await mongoose.connect(process.env.MONGODB_URI)
     await mongoose.connection.db.dropDatabase()
     const users = await User.create([
-        {username: 'aaron', email: 'aarondweck24@gmail.com', password: 'Password1!'},
-        {username: 'test', email: 'test@test.com', password: 'Password1!'}
+        { username: 'aaron', email: 'aarondweck24@gmail.com', password: 'Password1!' },
+        { username: 'test', email: 'test@test.com', password: 'Password1!' }
     ])
     const categories = await Category.create(data.categories)
 

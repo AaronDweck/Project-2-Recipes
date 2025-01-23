@@ -35,12 +35,12 @@
             <div class="upsert-ingredients-directions">
                 <label for="ingredients">Ingredients: </label>
                 <p>Separate each ingredient with a ";" leave last ingredient without a ";"</p>
-                <textarea name="ingredients" id="ingredients"><%= recipe.ingredients.join(';') %></textarea>
+                <textarea name="ingredients" id="ingredients"><%= recipe.ingredients.join(';\r\n') %></textarea>
             </div>
             <div class="upsert-ingredients-directions">
                 <label for="directions">Directions: </label>
                 <p>Separate each direction with a ";" leave last direction without a ";"</p>
-                <textarea name="directions" id="directions"><%= recipe.directions.join(';') %></textarea>
+                <textarea name="directions" id="directions"><%= recipe.directions.join(';\r\n') %></textarea>
             </div>
             <div class="upsert-submit">
                 <button type="submit">Update</button>
@@ -48,4 +48,5 @@
         </form>
     </div>
 </body>
+
 </html>

@@ -40,9 +40,9 @@ app.use(methodOverride('_method'))
 
 app.use(mongoSanitize({ replaceWith: '_' }))
 
-app.use((req, res, next) => { 
-	res.locals.user = req.session.user || null 
-	next() 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null
+    next()
 })
 
 app.use('/', recipeController)

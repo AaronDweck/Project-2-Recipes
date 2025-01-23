@@ -1,13 +1,14 @@
 <%- include('../partials/html-head') %>
 <%- include('../partials/nav', {user: user}) %>
-<div class="recipe-container">
-    <% recipes.forEach(recipe => { %>
-        <a href="/recipe/<%= recipe._id %>">
-            <div class="recipe">
-                <p><%= recipe.name %></p>
-            </div>
-        </a>
-    <% }) %>
-</div>
+    <div class="recipe-container">
+        <% recipes.forEach(recipe => { %>
+            <a href="/recipe/<%= recipe._id %>">
+                <div class="recipe">
+                    <p><%= recipe.name %></p>
+                </div>
+            </a>
+        <% }) %>
+    </div>
 </body>
+
 </html>

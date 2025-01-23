@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 
 const categorySchema = new mongoose.Schema({
-    name: {type: String, unique: true, required: true}
+    name: { type: String, unique: true, required: true }
 })
 
 // using this plugin for keys that are unique to return a validation error
