@@ -46,6 +46,28 @@ router.get('/recipeByCategory/:categoryId', async (req, res, next) => {
     }
 })
 
+router.get('/saved-recipes', async (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/login')
+        }
+
+        const user = await User.findById(req.session.user._id)
+
+        const recipes = []
+        for (const recipeID of user.savedRecipes) {
+            const recipe = await Recipe.findById(recipeID)
+            recipes.push(recipe)
+        }
+        res.render('recipes/index.ejs', {
+            user: req.session.user,
+            recipes: recipes
+        })
+    } catch (error) {
+        next(error)
+    }
+})
+
 // create recipe page
 router.get('/create-recipe', async (req, res, next) => {
     try {
@@ -88,8 +110,6 @@ router.post('/create-recipe', async (req, res, next) => {
         req.body.ingredients = req.body.ingredients.replace(/\r\n/g, '').split(';')
         req.body.directions = req.body.directions.replace(/\r\n/g, '').split(';')
         req.body.user = req.session.user
-
-        console.log(req.body)
 
         const recipe = await Recipe.create(req.body)
         res.redirect(`/recipe/${recipe._id}`)
@@ -143,8 +163,6 @@ router.put('/update-recipe/:recipeID', async (req, res, next) => {
         req.body.ingredients = req.body.ingredients.replace(/\r\n/g, '').split(';')
         req.body.directions = req.body.directions.replace(/\r\n/g, '').split(';')
         req.body.user = req.session.user
-
-        console.log(req.body)
         
         await Recipe.findByIdAndUpdate(req.params.recipeID, req.body, { runValidators: true })
         res.redirect(`/recipe/${req.params.recipeID}`)
@@ -160,7 +178,18 @@ router.delete('/recipe/:recipeID', async (req, res, next) => {
             return res.redirect('/login')
         }
 
+        const recipe = await Recipe.findById(req.params.recipeID)
+
+        if (!recipe.user._id.equals(req.session.user._id)) {
+            return res.send({ message: 'You are not authorized to delete this recipe.' })
+        }
+
         await Recipe.findByIdAndDelete(req.params.recipeID)
+
+        await User.updateMany(
+            { savedRecipes: recipe._id },
+            { $pull: { savedRecipes: recipe._id } }
+        )
         res.redirect('/')
     } catch (error) {
         next(error)

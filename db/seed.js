@@ -3,9 +3,12 @@ import User from "../models/user.js"
 import Recipe from '../models/recipe.js'
 import Category from '../models/category.js'
 import data from "../data.js"
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 async function seed() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/recipe-db')
+    await mongoose.connect(process.env.MONGODB_URI)
     await mongoose.connection.db.dropDatabase()
     const users = await User.create([
         {username: 'aaron', email: 'aarondweck24@gmail.com', password: 'Password1!'},
