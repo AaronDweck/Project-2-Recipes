@@ -1,6 +1,7 @@
 import express from 'express'
 import Recipe from '../models/recipe.js'
 import Category from '../models/category.js'
+import User from '../models/user.js'
 
 const router = express.Router()
 
@@ -152,6 +153,7 @@ router.put('/update-recipe/:recipeID', async (req, res, next) => {
     }
 })
 
+// route to delete a recipe by its id
 router.delete('/recipe/:recipeID', async (req, res, next) => {
     try {
         if (!req.session.user) {
@@ -164,5 +166,49 @@ router.delete('/recipe/:recipeID', async (req, res, next) => {
         next(error)
     }
 })
+
+// saving a recipe to the user
+router.post('/save-recipe/:recipeID', async (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/login')
+        }
+
+        const user = await User.findById(req.session.user._id)
+        const recipe = await Recipe.findById(req.params.recipeID)
+
+        user.savedRecipes.push(recipe._id)
+
+        await user.save()
+
+        req.session.user = user
+
+        res.redirect(`/recipe/${req.params.recipeID}`)
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.delete('/unsave-recipe/:recipeID', async (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/login')
+        }
+
+        const user = await User.findById(req.session.user._id)
+        const recipe = await Recipe.findById(req.params.recipeID)
+
+        user.savedRecipes.splice(user.savedRecipes.indexOf(recipe._id), 1)
+
+        await user.save()
+
+        req.session.user = user
+
+        res.redirect(`/recipe/${req.params.recipeID}`)
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 export default router

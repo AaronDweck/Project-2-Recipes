@@ -45,7 +45,21 @@
             </div>
             <div class="show-recipe-buttons">
                 <div>
-                    <button>Save</button>
+                    <% if (user) { %>
+                        <% if (!user.savedRecipes.includes(String(recipe._id))) { %>
+                            <form action="/save-recipe/<%= recipe._id %>" method="post">
+                                <button>Save</button>
+                            </form>
+                        <% } else { %>
+                            <form action="/unsave-recipe/<%= recipe._id %>?_method=DELETE" method="post">
+                                <button>Unsave</button>
+                            </form>
+                        <% } %>
+                    <% } else { %>
+                        <form action="/save-recipe/<%= recipe._id %>" method="post">
+                            <button>Save</button>
+                        </form>
+                    <% } %>
                 </div>
                 <% if (user) { %>
                     <% if (recipe.user._id.equals(user._id)) {%>

@@ -19,18 +19,9 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        // todo check why this format doesnt work
-        // validate: {
-        //     message: 'The password must be 8 characters long and contain at least 1 upercase, lowercase and symbol',
-        //     validator: (password) => {
-        //         validator.isStrongPassword(password,
-        //             { minLength: 8, minLowercase: 1, minNumbers: 1, minSymbols: 1, minUppercase: 1 }
-        //         )
-        //     }
-        // }
         validate: {
             message: 'The password must be 8 characters long and contain at least 1 upercase, lowercase and symbol',
-            validator: (password) =>  validator.isStrongPassword(password,
+            validator: (password) => validator.isStrongPassword(password,
                 { minLength: 8, minLowercase: 1, minNumbers: 1, minSymbols: 1, minUppercase: 1 }
             )
         }
@@ -43,7 +34,9 @@ userSchema.plugin(uniqueValidator)
 
 // this function runs before addig a user to the database and hashes the users password
 userSchema.pre('save', function (next) {
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync())
+    if (this.isModified('password')) {
+        this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync())
+    }
     next()
 })
 
