@@ -79,7 +79,8 @@ router.get('/create-recipe', async (req, res, next) => {
 
         res.render('recipes/new.ejs', {
             user: req.session.user,
-            categories: categories
+            categories: categories,
+            error: req.query.error
         })
     } catch (error) {
         next(error)
@@ -114,6 +115,7 @@ router.post('/create-recipe', async (req, res, next) => {
         const recipe = await Recipe.create(req.body)
         res.redirect(`/recipe/${recipe._id}`)
     } catch (error) {
+        res.locals.page = '/create-recipe'
         next(error)
     }
 
@@ -133,7 +135,8 @@ router.get('/update-recipe/:recipeID', async (req, res, next) => {
         res.render('recipes/update.ejs', {
             user: req.session.user,
             categories: categories,
-            recipe: recipe
+            recipe: recipe,
+            error: req.query.error
         })
     } catch (error) {
         next(error)
@@ -173,6 +176,7 @@ router.put('/update-recipe/:recipeID', async (req, res, next) => {
         await Recipe.findByIdAndUpdate(req.params.recipeID, req.body, { runValidators: true })
         res.redirect(`/recipe/${req.params.recipeID}`)
     } catch (error) {
+        res.locals.page = `/update-recipe/${req.params.recipeID}`
         next(error)
     }
 })
@@ -212,11 +216,11 @@ router.post('/save-recipe/:recipeID', async (req, res, next) => {
         const user = await User.findById(req.session.user._id)
         const recipe = await Recipe.findById(req.params.recipeID)
 
-        user.savedRecipes.push(recipe._id)
-
-        await user.save()
-
-        req.session.user = user
+        if (!user.savedRecipes.includes(recipe._id)) {
+            user.savedRecipes.push(recipe._id)
+            await user.save()
+            req.session.user = user
+        }
 
         res.redirect(`/recipe/${req.params.recipeID}`)
     } catch (error) {

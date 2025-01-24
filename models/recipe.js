@@ -11,9 +11,9 @@ const reviewSchema = new mongoose.Schema({
 const recipeSchema = new mongoose.Schema({
     name: { type: String, required: true },
     categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true }], // ? might want to make this not an array
-    description: { type: String },
-    servings: { type: String },
-    time: { type: String },
+    description: { type: String, required: true },
+    servings: { type: String, required: true },
+    time: { type: String, required: true },
     ingredients: [{ type: String, required: true }],
     directions: [{ type: String, required: true }],
     reviews: [reviewSchema],

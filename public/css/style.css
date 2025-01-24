@@ -38,6 +38,12 @@ textarea {
     resize: vertical;
 }
 
+.nav-links a:not(:last-child)::after {
+    content: "|"; 
+    color: white;  
+    margin: 0 10px;
+}
+
 .centering-container {
     display: flex;
     justify-content: center;
@@ -292,18 +298,4 @@ textarea {
 
 .show-recipe-buttons * {
     width: 100%;
-}
-
-.categories-dropdown {
-    display: inline;
-}
-
-.categories-dropdown-content {
-    display: none;
-    background-color: red;
-    position: relative;
-}
-
-.categories-dropdown:hover .categories-dropdown-content {
-    display: inline;
 }
