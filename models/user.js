@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
 // using this plugin for keys that are unique to return a validation error
 userSchema.plugin(uniqueValidator)
 
-// this function runs before addig a user to the database and hashes the users password
+// this function runs before saving a user to the database and hashes the users password
 userSchema.pre('save', function (next) {
     if (this.isModified('password')) {
         this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync())
