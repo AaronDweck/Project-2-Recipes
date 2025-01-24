@@ -32,19 +32,20 @@ router.get('/recipe/:recipeID', async (req, res, next) => {
     }
 })
 
+// ! in develompment
 // get all recipes by category page
-router.get('/recipeByCategory/:categoryId', async (req, res, next) => {
-    try {
-        let recipes = await Recipe.find()
-        recipes = recipes.filter(recipe => recipe.categories.includes(req.params.categoryId))
-        res.render('recipes/index.ejs', {
-            user: req.session.user,
-            recipes: recipes
-        })
-    } catch (error) {
-        next(error)
-    }
-})
+// router.get('/recipeByCategory/:categoryId', async (req, res, next) => {
+//     try {
+//         let recipes = await Recipe.find()
+//         recipes = recipes.filter(recipe => recipe.categories.includes(req.params.categoryId))
+//         res.render('recipes/index.ejs', {
+//             user: req.session.user,
+//             recipes: recipes
+//         })
+//     } catch (error) {
+//         next(error)
+//     }
+// })
 
 router.get('/saved-recipes', async (req, res, next) => {
     try {
